@@ -28,9 +28,9 @@ Before using this tool, ensure you have:
 | Requirement | Details |
 |-------------|---------|
 | **Operating System** | Windows 10 (1809+) or Windows 11 |
-| **Lenovo Legion Toolkit** | [Download here](https://github.com/BartoszCichworski/LenovoLegionToolkit) - Must be installed and running |
-| **LLT CLI Feature** | Must be enabled in LLT settings (see [Setup Guide](#enabling-llt-cli-feature)) |
-| **StreamDock** (optional) | [VSD Inside StreamDock](https://www.vsd-inside.com/) for button integration |
+| **Lenovo Legion Toolkit** | [Download here](https://github.com/BartoszCichecki/LenovoLegionToolkit) - Must be installed and running |
+| **LLT CLI Feature** | Must be enabled in LLT settings (see [Setup Guide](#3-enable-llt-cli-feature)) |
+| **StreamDock** (optional) | [VSD Inside StreamDock](https://www.vsdinside.com/) for button integration |
 
 ---
 
@@ -48,6 +48,7 @@ C:\Tools\llt-helper\llt-helper.exe
 ```
 
 ### 3. Enable LLT CLI Feature
+
 
 1. Open **Lenovo Legion Toolkit**
 2. Go to **Settings** (gear icon)
