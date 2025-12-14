@@ -1,4 +1,4 @@
-module github.com/cbrown350/streamdock-llt-helper
+module github.com/cbrown350/streamdock-lenovo-legion-toolkit-helper
 
 go 1.25.5
 

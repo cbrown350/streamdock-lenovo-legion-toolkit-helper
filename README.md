@@ -4,7 +4,7 @@
 [![Windows](https://img.shields.io/badge/Windows-10%2F11-0078D6?style=flat&logo=windows)](https://www.microsoft.com/windows)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-A fast, lightweight CLI tool that toggles through Lenovo Legion Toolkit power modes with visual toast notifications. Designed specifically for seamless integration with **VSD Inside StreamDock** software.
+A fast, lightweight CLI tool that toggles through Lenovo Legion Toolkit power modes with visual toast notifications. Designed specifically for seamless integration with **VSD Inside StreamDock** software, but should work with most other StreamDeck-type software.
 
 ![StreamDock Button Demo](assets/icons/performance.png)
 
@@ -38,7 +38,7 @@ Before using this tool, ensure you have:
 
 ### 1. Download
 
-Download the latest `llt-helper.exe` from the [Releases](https://github.com/cbrown350/streamdock-llt-helper/releases) page.
+Download the latest `llt-helper.exe` and any accompanying assets from the [Releases](https://github.com/cbrown350/streamdock-lenovo-legion-toolkit-helper/releases) page.
 
 ### 2. Place the Executable
 
@@ -134,8 +134,8 @@ Setting up a StreamDock button for one-touch power mode switching:
 ### Step 3: Set the Button Icon
 
 1. Click on the button icon area
-2. Navigate to: `C:\Tools\llt-helper\assets\icons\`
-3. Select one of the icons, such as `performance.png`
+2. Navigate to: `C:\Tools\llt-helper\assets\icons\` or `C:\Tools\llt-helper\assets\logos\` if generated
+3. Select one of the icons/logos, such as `performance.png`
 
 ### Step 4: Test
 
@@ -166,16 +166,16 @@ Press the StreamDock button - you should see:
 
 ```bash
 # Clone the repository
-git clone https://github.com/cbrown350/streamdock-llt-helper.git
+git clone https://github.com/cbrown350/streamdock-lenovo-legion-toolkit-helper.git
 cd streamdock-llt-helper
 
 # Download dependencies
 go mod download
 
 # Build the executable
-go build -ldflags="-s -w" -o dist/llt-helper.exe ./cmd/llt-helper
+go build -ldflags="-s -w -H windowsgui" -o dist/llt-helper.exe ./cmd/llt-helper
 
-# (Optional) Generate icon assets
+# (Optional - I don't like these generated logos) Generate icon assets
 go run build/generate_icons.go
 ```
 
@@ -300,7 +300,7 @@ Contributions are welcome! Here's how you can help:
 
 ### Reporting Issues
 
-1. Check existing [Issues](https://github.com/cbrown350/streamdock-llt-helper/issues) first
+1. Check existing [Issues](https://github.com/cbrown350/streamdock-lenovo-legion-toolkit-helper/issues) first
 2. Include your Windows version and LLT version
 3. Provide steps to reproduce the problem
 4. Include any error messages
@@ -364,8 +364,8 @@ SOFTWARE.
 
 ## 📞 Support
 
-- **Issues:** [GitHub Issues](https://github.com/cbrown350/streamdock-llt-helper/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/cbrown350/streamdock-llt-helper/discussions)
+- **Issues:** [GitHub Issues](https://github.com/cbrown350/streamdock-lenovo-legion-toolkit-helper/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/cbrown350/streamdock-lenovo-legion-toolkit-helper/discussions)
 
 ---
 

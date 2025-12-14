@@ -6,9 +6,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/cbrown350/streamdock-llt-helper/internal/llt"
-	"github.com/cbrown350/streamdock-llt-helper/internal/modes"
-	"github.com/cbrown350/streamdock-llt-helper/internal/toast"
+	"github.com/cbrown350/streamdock-lenovo-legion-toolkit-helper/internal/llt"
+	"github.com/cbrown350/streamdock-lenovo-legion-toolkit-helper/internal/modes"
+	"github.com/cbrown350/streamdock-lenovo-legion-toolkit-helper/internal/toast"
 )
 
 const version = "1.0.0"
