@@ -1,0 +1,63 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+env:
+  GO_VERSION: '1.21.x'
+
+jobs:
+  build-and-release:
+    name: Build and publish release
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Ensure tag commit is on main
+        shell: pwsh
+        run: |
+          git fetch origin main --depth=1
+          $containsMain = git branch --contains $env:GITHUB_SHA | Select-String -Pattern '\bmain\b'
+          if (-not $containsMain) {
+            Write-Error "Tag commit must be on main branch."
+            exit 1
+          }
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache: true
+
+      - name: Download dependencies
+        run: go mod download
+
+      - name: Build Windows binary
+        run: go build -ldflags="-s -w -H windowsgui" -o dist/llt-helper.exe ./cmd/llt-helper
+
+      - name: Prepare release assets
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path release/assets/icons -Force | Out-Null
+          Copy-Item dist/llt-helper.exe release/
+          Get-ChildItem assets/icons -Include *.png,*.svg -File | Copy-Item -Destination release/assets/icons/
+          Compress-Archive -Path release/* -DestinationPath streamdock-llt-helper_windows.zip -Force
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            dist/llt-helper.exe
+            streamdock-llt-helper_windows.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
