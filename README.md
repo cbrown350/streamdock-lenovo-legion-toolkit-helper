@@ -134,8 +134,8 @@ Setting up a StreamDock button for one-touch power mode switching:
 ### Step 3: Set the Button Icon
 
 1. Click on the button icon area
-2. Navigate to: `C:\Tools\llt-helper\assets\logo\`
-3. Select `streamdock-button.png`
+2. Navigate to: `C:\Tools\llt-helper\assets\icons\`
+3. Select one of the icons, such as `performance.png`
 
 ### Step 4: Test
 
@@ -203,12 +203,10 @@ streamdock-llt-helper/
 │   └── toast/
 │       └── notifier.go       # Toast notifications
 ├── assets/
-│   ├── icons/                # Mode icons (PNG/SVG)
-│   │   ├── quiet.png
-│   │   ├── balance.png
-│   │   └── performance.png
-│   └── logo/
-│       └── streamdock-button.png  # StreamDock button icon
+│   └── icons/                # Mode icons (PNG/SVG)
+│       ├── quiet.png
+│       ├── balance.png
+│       └── performance.png
 ├── build/
 │   └── generate_icons.go     # Icon generation script
 ├── dist/
