@@ -18,6 +18,7 @@ permissions:
 
 env:
   GO_VERSION: "1.21.x"
+  DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
 
 jobs:
   build-and-release:
@@ -54,10 +55,15 @@ jobs:
       - name: Ensure tag commit is on main
         shell: pwsh
         run: |
-          git fetch origin main --depth=1
-          $containsMain = git branch --contains $env:GITHUB_SHA | Select-String -Pattern '\bmain\b'
-          if (-not $containsMain) {
-            Write-Error "Tag commit must be on main branch."
+          $defaultBranch = "${{ env.DEFAULT_BRANCH }}"
+          if ([string]::IsNullOrWhiteSpace($defaultBranch)) {
+            $defaultBranch = "main"
+          }
+
+          git fetch origin $defaultBranch --depth=1
+          git merge-base --is-ancestor $env:GITHUB_SHA origin/$defaultBranch
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "Tag commit must be on branch '$defaultBranch'."
             exit 1
           }
 
