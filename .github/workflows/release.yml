@@ -3,15 +3,21 @@ name: Release
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Semantic version tag (e.g., v1.2.3)"
+        required: true
+        type: string
 
 permissions:
   contents: write
 
 env:
-  GO_VERSION: '1.21.x'
+  GO_VERSION: "1.21.x"
 
 jobs:
   build-and-release:
@@ -22,6 +28,28 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Determine tag
+        id: vars
+        shell: pwsh
+        run: |
+          if ("${{ github.event_name }}" -eq "workflow_dispatch") {
+            $tag = "${{ inputs.tag }}"
+          } else {
+            $tag = "${{ github.ref_name }}"
+          }
+
+          if (-not $tag) {
+            Write-Error "Tag value is required."
+            exit 1
+          }
+
+          if (-not ($tag -match '^v\d+\.\d+\.\d+$')) {
+            Write-Error "Tag must match semantic version format vX.Y.Z"
+            exit 1
+          }
+
+          "tag=$tag" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
 
       - name: Ensure tag commit is on main
         shell: pwsh
@@ -56,6 +84,9 @@ jobs:
       - name: Publish release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ steps.vars.outputs.tag }}
+          name: ${{ steps.vars.outputs.tag }}
+          target_commitish: ${{ github.sha }}
           files: |
             dist/llt-helper.exe
             streamdock-llt-helper_windows.zip
