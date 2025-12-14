@@ -84,7 +84,7 @@ jobs:
         run: |
           New-Item -ItemType Directory -Path release/assets/icons -Force | Out-Null
           Copy-Item dist/llt-helper.exe release/
-          Get-ChildItem assets/icons -Include *.png,*.svg -File | Copy-Item -Destination release/assets/icons/
+          Get-ChildItem assets/icons -Recurse -File -Include *.png,*.svg | Copy-Item -Destination release/assets/icons/
           Compress-Archive -Path release/* -DestinationPath streamdock-llt-helper_windows.zip -Force
 
       - name: Publish release
