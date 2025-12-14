@@ -6,7 +6,7 @@
 
 A fast, lightweight CLI tool that toggles through Lenovo Legion Toolkit power modes with visual toast notifications. Designed specifically for seamless integration with **VSD Inside StreamDock** software.
 
-![StreamDock Button Demo](assets/logo/streamdock-button.png)
+![StreamDock Button Demo](assets/icons/performance.png)
 
 ---
 
