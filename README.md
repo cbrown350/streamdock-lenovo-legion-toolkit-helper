@@ -112,6 +112,17 @@ The `toggle` command cycles through modes in this order:
      └──────────────────────────────────┘
 ```
 
+### Custom Mode Cycle
+
+You can limit the cycle to specific modes using the `--modes` flag:
+
+```bash
+# Cycle between Quiet and Performance only (skip Balance)
+llt-helper.exe toggle --modes=quiet,performance
+```
+
+This is useful if you never use Balance mode and want to quickly switch between silent and gaming modes.
+
 ---
 
 ## 🎮 StreamDock Setup
