@@ -10,61 +10,62 @@ import (
 )
 
 var (
-	user32                  = windows.NewLazySystemDLL("user32.dll")
-	gdi32                   = windows.NewLazySystemDLL("gdi32.dll")
-	procCreateWindowEx      = user32.NewProc("CreateWindowExW")
-	procDefWindowProc       = user32.NewProc("DefWindowProcW")
-	procDispatchMessage     = user32.NewProc("DispatchMessageW")
-	procGetMessage          = user32.NewProc("GetMessageW")
-	procRegisterClassEx     = user32.NewProc("RegisterClassExW")
-	procPostQuitMessage     = user32.NewProc("PostQuitMessage")
-	procShowWindow          = user32.NewProc("ShowWindow")
-	procUpdateWindow        = user32.NewProc("UpdateWindow")
-	procGetSystemMetrics    = user32.NewProc("GetSystemMetrics")
-	procSetWindowPos        = user32.NewProc("SetWindowPos")
+	user32                         = windows.NewLazySystemDLL("user32.dll")
+	gdi32                          = windows.NewLazySystemDLL("gdi32.dll")
+	procCreateWindowEx             = user32.NewProc("CreateWindowExW")
+	procDefWindowProc              = user32.NewProc("DefWindowProcW")
+	procDispatchMessage            = user32.NewProc("DispatchMessageW")
+	procGetMessage                 = user32.NewProc("GetMessageW")
+	procRegisterClassEx            = user32.NewProc("RegisterClassExW")
+	procPostQuitMessage            = user32.NewProc("PostQuitMessage")
+	procShowWindow                 = user32.NewProc("ShowWindow")
+	procUpdateWindow               = user32.NewProc("UpdateWindow")
+	procGetSystemMetrics           = user32.NewProc("GetSystemMetrics")
+	procSetWindowPos               = user32.NewProc("SetWindowPos")
 	procSetLayeredWindowAttributes = user32.NewProc("SetLayeredWindowAttributes")
-	procGetDC               = user32.NewProc("GetDC")
-	procReleaseDC           = user32.NewProc("ReleaseDC")
-	procBeginPaint          = user32.NewProc("BeginPaint")
-	procEndPaint            = user32.NewProc("EndPaint")
-	procFillRect            = user32.NewProc("FillRect")
-	procCreateSolidBrush    = gdi32.NewProc("CreateSolidBrush")
-	procDeleteObject        = gdi32.NewProc("DeleteObject")
-	procSetBkMode           = gdi32.NewProc("SetBkMode")
-	procSetTextColor        = gdi32.NewProc("SetTextColor")
-	procDrawText            = user32.NewProc("DrawTextW")
-	procCreateFont          = gdi32.NewProc("CreateFontW")
-	procSelectObject        = gdi32.NewProc("SelectObject")
-	procSetTimer            = user32.NewProc("SetTimer")
-	procKillTimer           = user32.NewProc("KillTimer")
-	procDestroyWindow       = user32.NewProc("DestroyWindow")
-	procTranslateMessage    = user32.NewProc("TranslateMessage")
+	procGetDC                      = user32.NewProc("GetDC")
+	procReleaseDC                  = user32.NewProc("ReleaseDC")
+	procBeginPaint                 = user32.NewProc("BeginPaint")
+	procEndPaint                   = user32.NewProc("EndPaint")
+	procFillRect                   = user32.NewProc("FillRect")
+	procCreateSolidBrush           = gdi32.NewProc("CreateSolidBrush")
+	procDeleteObject               = gdi32.NewProc("DeleteObject")
+	procSetBkMode                  = gdi32.NewProc("SetBkMode")
+	procSetTextColor               = gdi32.NewProc("SetTextColor")
+	procDrawText                   = user32.NewProc("DrawTextW")
+	procCreateFont                 = gdi32.NewProc("CreateFontW")
+	procSelectObject               = gdi32.NewProc("SelectObject")
+	procSetTimer                   = user32.NewProc("SetTimer")
+	procKillTimer                  = user32.NewProc("KillTimer")
+	procDestroyWindow              = user32.NewProc("DestroyWindow")
+	procTranslateMessage           = user32.NewProc("TranslateMessage")
 )
 
 const (
-	WS_EX_LAYERED     = 0x00080000
-	WS_EX_TOPMOST     = 0x00000008
-	WS_EX_TOOLWINDOW  = 0x00000080
-	WS_POPUP          = 0x80000000
-	WS_VISIBLE        = 0x10000000
-	SW_SHOW           = 5
-	SWP_NOSIZE        = 0x0001
-	SWP_NOMOVE        = 0x0002
-	SWP_NOZORDER      = 0x0004
-	SWP_SHOWWINDOW    = 0x0040
-	HWND_TOPMOST      = ^uintptr(0)
-	LWA_ALPHA         = 0x00000002
-	SM_CXSCREEN       = 0
-	SM_CYSCREEN       = 1
-	WM_PAINT          = 0x000F
-	WM_TIMER          = 0x0113
-	WM_DESTROY        = 0x0002
-	DT_CENTER         = 0x00000001
-	DT_VCENTER        = 0x00000004
-	DT_SINGLELINE     = 0x00000020
-	TRANSPARENT       = 1
-	FW_BOLD           = 700
-	DEFAULT_CHARSET   = 1
+	WS_EX_LAYERED    = 0x00080000
+	WS_EX_TOPMOST    = 0x00000008
+	WS_EX_TOOLWINDOW = 0x00000080
+	WS_POPUP         = 0x80000000
+	WS_VISIBLE       = 0x10000000
+	SW_SHOW          = 5
+	SWP_NOSIZE       = 0x0001
+	SWP_NOMOVE       = 0x0002
+	SWP_NOZORDER     = 0x0004
+	SWP_SHOWWINDOW   = 0x0040
+	HWND_TOPMOST     = ^uintptr(0)
+	LWA_ALPHA        = 0x00000002
+	SM_CXSCREEN      = 0
+	SM_CYSCREEN      = 1
+	WM_PAINT         = 0x000F
+	WM_TIMER         = 0x0113
+	WM_DESTROY       = 0x0002
+	DT_CENTER        = 0x00000001
+	DT_VCENTER       = 0x00000004
+	DT_SINGLELINE    = 0x00000020
+	TRANSPARENT      = 1
+	FW_BOLD          = 700
+	DEFAULT_CHARSET  = 1
+	WM_LBUTTONDOWN   = 0x0201
 )
 
 type WNDCLASSEX struct {
@@ -127,12 +128,12 @@ var globalTitle string
 func (n *Notifier) ShowModeChange(modeName, iconPath string) error {
 	globalTitle = "Power Mode Changed"
 	globalMessage = fmt.Sprintf("Switched to %s Mode", modeName)
-	
+
 	// Show OSD (blocks for duration, but that's OK - we want the notification to stay)
 	if err := showOSD(globalTitle, globalMessage, 3*time.Second); err != nil {
 		return fmt.Errorf("OSD notification error: %w", err)
 	}
-	
+
 	return nil
 }
 
@@ -140,17 +141,17 @@ func (n *Notifier) ShowModeChange(modeName, iconPath string) error {
 func (n *Notifier) ShowError(message string) error {
 	globalTitle = "Power Mode Error"
 	globalMessage = message
-	
+
 	if err := showOSD(globalTitle, globalMessage, 3*time.Second); err != nil {
 		return fmt.Errorf("OSD notification error: %w", err)
 	}
-	
+
 	return nil
 }
 
 func showOSD(title, message string, duration time.Duration) error {
 	className, _ := syscall.UTF16PtrFromString("LLTHelperOSD")
-	
+
 	instance := windows.Handle(0)
 	modhandle, err := syscall.LoadLibrary("kernel32.dll")
 	if err == nil {
@@ -161,7 +162,7 @@ func showOSD(title, message string, duration time.Duration) error {
 	}
 
 	wndProc := syscall.NewCallback(wndProcCallback)
-	
+
 	wc := WNDCLASSEX{
 		Size:      uint32(unsafe.Sizeof(WNDCLASSEX{})),
 		WndProc:   wndProc,
@@ -185,7 +186,7 @@ func showOSD(title, message string, duration time.Duration) error {
 	osdY := int(screenHeight) - int(float64(screenHeight)*0.15) // 15% from bottom
 
 	windowName, _ := syscall.UTF16PtrFromString("LLT Helper OSD")
-	
+
 	hwnd, _, _ := procCreateWindowEx.Call(
 		WS_EX_LAYERED|WS_EX_TOPMOST|WS_EX_TOOLWINDOW,
 		uintptr(unsafe.Pointer(className)),
@@ -216,9 +217,18 @@ func showOSD(title, message string, duration time.Duration) error {
 	timerID := uintptr(1)
 	procSetTimer.Call(hwnd, timerID, uintptr(duration.Milliseconds()), 0)
 
-	// Message loop
+	// Message loop with timeout protection
 	var msg MSG
+	startTime := time.Now()
+	timeoutDuration := duration + (2 * time.Second) // Add 2 second buffer
+
 	for {
+		// Check if we've exceeded timeout
+		if time.Since(startTime) > timeoutDuration {
+			procDestroyWindow.Call(hwnd)
+			break
+		}
+
 		ret, _, _ := procGetMessage.Call(
 			uintptr(unsafe.Pointer(&msg)),
 			0,
@@ -240,7 +250,7 @@ func wndProcCallback(hwnd windows.Handle, msg uint32, wParam, lParam uintptr) ui
 	case WM_PAINT:
 		var ps PAINTSTRUCT
 		hdc, _, _ := procBeginPaint.Call(uintptr(hwnd), uintptr(unsafe.Pointer(&ps)))
-		
+
 		// Create dark background
 		bgBrush, _, _ := procCreateSolidBrush.Call(0x00202020) // Dark gray
 		var rect RECT
@@ -300,11 +310,17 @@ func wndProcCallback(hwnd windows.Handle, msg uint32, wParam, lParam uintptr) ui
 		procSelectObject.Call(hdc, oldFont)
 		procDeleteObject.Call(titleFont)
 		procDeleteObject.Call(messageFont)
-		
+
 		procEndPaint.Call(uintptr(hwnd), uintptr(unsafe.Pointer(&ps)))
 		return 0
 
 	case WM_TIMER:
+		procKillTimer.Call(uintptr(hwnd), 1)
+		procDestroyWindow.Call(uintptr(hwnd))
+		return 0
+
+	case WM_LBUTTONDOWN:
+		// Close window when clicked
 		procDestroyWindow.Call(uintptr(hwnd))
 		return 0
 
