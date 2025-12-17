@@ -4,8 +4,6 @@ on:
   push:
     tags:
       - "v*.*.*"
-    branches:
-      - master
   workflow_dispatch:
     inputs:
       tag:
@@ -99,5 +97,6 @@ jobs:
             streamdock-llt-helper_windows.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
 
